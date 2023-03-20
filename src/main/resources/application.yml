@@ -1,0 +1,15 @@
+spring:
+    data:
+        mongodb:
+            host: localhost
+            port: 27017
+            database: treestagram_db
+    servlet:
+        multipart:
+            max-file-size: 256MB
+            max-request-size: 256MB
+            enabled: true
+
+# jvdb18.app.jwtCookieName= treestagram
+# jvdb18.app.jwtSecret= treestagram
+# jvdb18.app.jwtExpirationMs= 86400000
