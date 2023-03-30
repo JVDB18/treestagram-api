@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 @Data
-@Document
+@Document(collection = "user")
 @Getter @Setter
 public class User implements UserDetails {
 
@@ -26,7 +26,6 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private boolean enabled = true;
-//@DBRef
     private Set<String> roles = new LinkedHashSet<>();
 
     @Override

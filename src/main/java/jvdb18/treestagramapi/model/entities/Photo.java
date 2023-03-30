@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
 
 @Data
-@Document(collection = "photos")
+@Document(collection = "photo")
 public class Photo {
     @Id
     private String url;

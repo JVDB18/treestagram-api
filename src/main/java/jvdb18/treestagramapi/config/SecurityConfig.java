@@ -114,6 +114,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/auth/*").anonymous()
                     // via lambda RequestMatchers
                     .requestMatchers(HttpMethod.POST, "/photos/*").anonymous()
+                    .requestMatchers(HttpMethod.POST, "/post/*").anonymous()
                     .requestMatchers( request -> request.getRequestURI().length() > 50 ).hasRole("ADMIN")
                     // via mapping d'URI
                     .requestMatchers("/plane/all").anonymous()
