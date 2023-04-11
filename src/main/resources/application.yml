@@ -4,6 +4,7 @@ spring:
             host: localhost
             port: 27017
             database: treestagram_db
+            auto-index-creation: true
     servlet:
         multipart:
             max-file-size: 256MB

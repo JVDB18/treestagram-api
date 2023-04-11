@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,8 +24,10 @@ public class User implements UserDetails {
 
     @Id
     private String id;
-
+    @Indexed(unique=true)
     private String username;
+    @Indexed(unique=true)
+    private String email;
     private String password;
     private boolean enabled = true;
     private Set<String> roles = new LinkedHashSet<>();
