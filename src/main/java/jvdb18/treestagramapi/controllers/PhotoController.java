@@ -24,6 +24,7 @@ public class PhotoController {
     public PhotoController(PhotoServiceImpl photoService){
         this.photoService = photoService;
     }
+    @CrossOrigin
     @PostMapping("/photos/add")
     public String addPhoto(@RequestParam("username") String username, @RequestParam("description") String desc, @RequestParam("image") MultipartFile file, Model model) throws Exception {
         String id = photoService.addPhoto(username, desc, file);
