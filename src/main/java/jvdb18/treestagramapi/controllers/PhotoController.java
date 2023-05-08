@@ -43,17 +43,12 @@ public class PhotoController {
     }
     @CrossOrigin
     @GetMapping(path = "/photos/stream/{id}")
-    public ResponseEntity<OutputStream> streamPhoto(@PathVariable String id, HttpServletResponse response) throws Exception {
+    public ResponseEntity<byte[]> streamPhoto(@PathVariable String id, HttpServletResponse response) throws Exception {
         Photo photo = photoService.getPhoto(id);
 
-        BufferedOutputStream out = new BufferedOutputStream(null, 800);
-
-        
-         FileCopyUtils.copy(photo.getImage(), out);
-
         return ResponseEntity.ok()
-            // .header("content-type", "image/jpeg")
-            .body( out );
+                .header("content-type", "image/png")
+                .body( photo.getImage().readAllBytes() );
     }
     @CrossOrigin
     @GetMapping("/photos/all")
