@@ -111,17 +111,17 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests( (authorize) -> {
             authorize
-                    .requestMatchers(HttpMethod.POST, "/auth/*").anonymous()
-                    // via lambda RequestMatchers
-                    .requestMatchers(HttpMethod.POST, "/photos/*").anonymous()
-                    .requestMatchers(HttpMethod.POST, "/post/*").anonymous()
-                    .requestMatchers( request -> request.getRequestURI().length() > 50 ).hasRole("ADMIN")
-                    // via mapping d'URI
-                    .requestMatchers("/plane/all").anonymous()
-                    .requestMatchers("/plane/add").authenticated()
-                    .requestMatchers("/plane/{id:[0-9]+}/?pdate").hasRole("ADMIN")//.hasAuthority("ROLE_ADMIN")
-                    // via HttpMethod
-                    .requestMatchers( HttpMethod.POST ).hasRole("ADMIN")
+//                    .requestMatchers(HttpMethod.POST, "/auth/*").anonymous()
+//                    // via lambda RequestMatchers
+//                    .requestMatchers(HttpMethod.POST, "/photos/*").anonymous()
+//                    .requestMatchers(HttpMethod.POST, "/post/*").anonymous()
+//                    .requestMatchers( request -> request.getRequestURI().length() > 50 ).hasRole("ADMIN")
+//                    // via mapping d'URI
+//                    .requestMatchers("/plane/all").anonymous()
+//                    .requestMatchers("/plane/add").authenticated()
+//                    .requestMatchers("/plane/{id:[0-9]+}/?pdate").hasRole("ADMIN")//.hasAuthority("ROLE_ADMIN")
+//                    // via HttpMethod
+//                    .requestMatchers( HttpMethod.POST ).hasRole("ADMIN")
                     // via HttpMethod + mapping d'URI
 //                    .requestMatchers(HttpMethod.GET, "/plane/*")
 //                                    .hasAnyRole("USER","ADMIN")

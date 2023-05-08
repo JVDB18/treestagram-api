@@ -1,9 +1,13 @@
 package jvdb18.treestagramapi.controllers;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,16 +39,17 @@ public class PhotoController {
     @GetMapping("/photos/{id}")
     public Photo getPhoto(@PathVariable String id, Model model) throws Exception {
         Photo photo = photoService.getPhoto(id);
-        model.addAttribute("url", "/photos/stream/" + id);
         return photo;
     }
-
     @CrossOrigin
-    @GetMapping("/photos/stream/{id}")
-    public void streamPhoto(@PathVariable String id, HttpServletResponse response) throws Exception {
+    @GetMapping(path = "/photos/stream/{id}")
+    public ResponseEntity<byte[]> streamPhoto(@PathVariable String id, HttpServletResponse response) throws Exception {
         Photo photo = photoService.getPhoto(id);
-        FileCopyUtils.copy(photo.getImage(), response.getOutputStream());
+        return ResponseEntity.ok()
+                .header("content-type", "image/png")
+                .body(photo.getImage().readAllBytes());
     }
+
     @CrossOrigin
     @GetMapping("/photos/all")
     public List<String> getAllUrl(Model model) throws Exception {
