@@ -43,7 +43,6 @@ public class PhotoServiceImpl {
         entity.setDescription(desc);
         entity.setUserId(username);
         entity.setUrl(id.toString());
-        //entity.setImage(file.getInputStream());
         repository.save(entity);
         return entity.getUrl();
     }

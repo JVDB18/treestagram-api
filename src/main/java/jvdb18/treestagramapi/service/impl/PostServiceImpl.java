@@ -27,16 +27,15 @@ public class PostServiceImpl {
         this.photoService = photoService;
     }
     
-    public String addPost(String desc, String loca, String username, String userId, List<String> tags, MultipartFile file) throws IOException{
+    public void addPost(String desc, String loca, String username, String userId, List<String> tags, MultipartFile file) throws IOException{
         Post post = new Post();
         post.setDescription(desc);
         post.setLocalisation(loca);
         post.setUserName(username);
         post.setUserId(userId);
         post.setTags(tags);
-        post.setPictureUrl(this.photoService.addPhoto(desc, username, file));
+        post.setPictureUrl("http://localhost:8080/photos/"+this.photoService.addPhoto(desc, username, file));
         this.postRepository.save(post);
-        return post.getId();
     }
     // à essayer avec formulaire angular
     // public String addPost(PostForm form, MultipartFile file) throws IOException{

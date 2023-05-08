@@ -12,16 +12,16 @@ import jvdb18.treestagramapi.utils.ErrorDTO;
 @ControllerAdvice
 public class ExceptionController {
     
-    @ExceptionHandler(Throwable.class)
-    public ResponseEntity<ErrorDTO> handle(Throwable e){
-        if(e instanceof UsernameNotFoundException){
-            return ResponseEntity
-                   .status(HttpStatus.BAD_REQUEST)
-                   .body(new ErrorDTO(e.getMessage()));
+    // @ExceptionHandler(Throwable.class)
+    // public ResponseEntity<ErrorDTO> handle(Throwable e){
+    //     if(e instanceof UsernameNotFoundException){
+    //         return ResponseEntity
+    //                .status(HttpStatus.BAD_REQUEST)
+    //                .body(new ErrorDTO(e.getMessage()));
                    
-        } 
-        return ResponseEntity
-               .status(HttpStatus.NOT_IMPLEMENTED)
-               .build();
-    }
+    //     } 
+    //     return ResponseEntity
+    //            .status(HttpStatus.NOT_IMPLEMENTED)
+    //            .build();
+    // }
 }

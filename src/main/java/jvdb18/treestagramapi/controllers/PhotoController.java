@@ -1,9 +1,13 @@
 package jvdb18.treestagramapi.controllers;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jvdb18.treestagramapi.model.entities.Photo;
 import jvdb18.treestagramapi.service.impl.PhotoServiceImpl;
 
+@CrossOrigin
 @RestController
 public class PhotoController {
     private PhotoServiceImpl photoService;
@@ -26,9 +31,9 @@ public class PhotoController {
     }
     @CrossOrigin
     @PostMapping("/photos/add")
-    public String addPhoto(@RequestParam("username") String username, @RequestParam("description") String desc, @RequestParam("image") MultipartFile file, Model model) throws Exception {
-        String id = photoService.addPhoto(username, desc, file);
-        return "redirect:/photos/"+ id;
+    public void addPhoto(@RequestParam("username") String username, @RequestParam("description") String desc, @RequestParam("image") MultipartFile file, Model model) throws Exception {
+       photoService.addPhoto(username, desc, file);
+        
     }
     @CrossOrigin
     @GetMapping("/photos/{id}")
@@ -37,10 +42,18 @@ public class PhotoController {
         return photo;
     }
     @CrossOrigin
-    @GetMapping("/photos/stream/{id}")
-    public void streamPhoto(@PathVariable String id, HttpServletResponse response) throws Exception {
+    @GetMapping(path = "/photos/stream/{id}")
+    public ResponseEntity<OutputStream> streamPhoto(@PathVariable String id, HttpServletResponse response) throws Exception {
         Photo photo = photoService.getPhoto(id);
-        FileCopyUtils.copy(photo.getImage(), response.getOutputStream());
+
+        BufferedOutputStream out = new BufferedOutputStream(null, 800);
+
+        
+         FileCopyUtils.copy(photo.getImage(), out);
+
+        return ResponseEntity.ok()
+            // .header("content-type", "image/jpeg")
+            .body( out );
     }
     @CrossOrigin
     @GetMapping("/photos/all")

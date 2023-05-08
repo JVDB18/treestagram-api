@@ -34,8 +34,8 @@ public class PostController {
     //     return this.postServiceImpl.addPost(form, file);
     // }
     @PostMapping("add")
-    public String addPost(@RequestParam("description") String desc, @RequestParam("localisation") String loca,@RequestParam("username") String username,@RequestParam("userid") String userid, MultipartFile file) throws IOException{
-        return this.postServiceImpl.addPost(desc, loca, username, userid, null, file);
+    public void addPost(@RequestParam("description") String desc, @RequestParam("localisation") String loca,@RequestParam("username") String username,@RequestParam("userid") String userid, MultipartFile file) throws IOException{
+       this.postServiceImpl.addPost(desc, loca, username, userid, null, file);
     }
     @GetMapping("/{id}")
     public Post getById(@PathVariable("id") String id){
