@@ -45,11 +45,11 @@ public class PhotoController {
     @GetMapping(path = "/photos/stream/{id}")
     public ResponseEntity<byte[]> streamPhoto(@PathVariable String id, HttpServletResponse response) throws Exception {
         Photo photo = photoService.getPhoto(id);
-
         return ResponseEntity.ok()
                 .header("content-type", "image/png")
-                .body( photo.getImage().readAllBytes() );
+                .body(photo.getImage().readAllBytes());
     }
+
     @CrossOrigin
     @GetMapping("/photos/all")
     public List<String> getAllUrl(Model model) throws Exception {
