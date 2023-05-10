@@ -13,8 +13,6 @@ import lombok.Data;
 public class Post {
     @Id
     private String id;
-    //@NotNull
-    private String userId;
     @NotNull
     private String userName;
     private String localisation;

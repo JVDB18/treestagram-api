@@ -9,21 +9,17 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import jvdb18.treestagramapi.form.PostForm;
 import jvdb18.treestagramapi.model.entities.Post;
-import jvdb18.treestagramapi.repository.PhotoRepository;
 import jvdb18.treestagramapi.repository.PostRepository;
 
 @Service
 public class PostServiceImpl {
     private final MongoTemplate mongoTemplate;
     private final PostRepository postRepository;
-    private final PhotoRepository photoRepository;
     private final PhotoServiceImpl photoService;
-    public PostServiceImpl(MongoTemplate mongoTemplate, PostRepository postRepository, PhotoRepository photoRepository, PhotoServiceImpl photoService){
+    public PostServiceImpl(MongoTemplate mongoTemplate, PostRepository postRepository,  PhotoServiceImpl photoService){
         this.mongoTemplate = mongoTemplate;
         this.postRepository = postRepository;
-        this.photoRepository = photoRepository;
         this.photoService = photoService;
     }
     
@@ -32,9 +28,8 @@ public class PostServiceImpl {
         post.setDescription(desc);
         post.setLocalisation(loca);
         post.setUserName(username);
-        post.setUserId(userId);
         post.setTags(tags);
-        post.setPictureUrl("http://localhost:8080/photos/"+this.photoService.addPhoto(desc, username, file));
+        post.setPictureUrl("http://localhost:8080/photos/stream/"+this.photoService.addPhoto(desc, username, file));
         this.postRepository.save(post);
     }
     // à essayer avec formulaire angular

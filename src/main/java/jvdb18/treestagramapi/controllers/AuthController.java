@@ -14,6 +14,7 @@ import jvdb18.treestagramapi.service.AuthService;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin
 public class AuthController {
 
     private final AuthService authService;
@@ -22,7 +23,7 @@ public class AuthController {
         this.authService = authService;
     }
     @CrossOrigin
-    @PostMapping("/register")
+    @PostMapping("/sign_up")
     public void register(@RequestBody @Valid RegistrationForm form){
         authService.register( form );
     }
