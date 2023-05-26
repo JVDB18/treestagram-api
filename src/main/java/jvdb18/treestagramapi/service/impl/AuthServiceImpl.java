@@ -3,9 +3,12 @@ package jvdb18.treestagramapi.service.impl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import jvdb18.treestagramapi.exception.NoSuchUserException;
+import jvdb18.treestagramapi.exception.UserAlreadyExistException;
 import jvdb18.treestagramapi.form.LoginForm;
 import jvdb18.treestagramapi.form.RegistrationForm;
 import jvdb18.treestagramapi.jwt.JWTHolderDTO;
@@ -36,11 +39,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void register(RegistrationForm form) {
-
-        User user = form.toEntity();
-        user.setPassword( encoder.encode(user.getPassword()) );
-
-        userRepository.save( user );
+        try{
+            User user = form.toEntity();
+            user.setPassword( encoder.encode(user.getPassword()) );
+            userRepository.save( user );
+        } catch (Exception ex) {
+            throw new UserAlreadyExistException("User Already Exist");
+        }
 
     }
 
@@ -51,12 +56,16 @@ public class AuthServiceImpl implements AuthService {
                 form.getUsername(),
                 form.getPassword()
         );
+        try{
+            auth = authManager.authenticate( auth );
+    
+            String token = jwtProvider.createToken( auth );
+    
+            return new JWTHolderDTO( token );
 
-        auth = authManager.authenticate( auth );
-
-        String token = jwtProvider.createToken( auth );
-
-        return new JWTHolderDTO( token );
+        } catch(AuthenticationException ex) {
+            throw new NoSuchUserException("Bad Credential");
+        }
 
     }
 }

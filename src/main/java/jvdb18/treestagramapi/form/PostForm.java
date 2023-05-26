@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class PostForm {
-    private String userId;
     private String username;
     private String localisation;
     private String description;

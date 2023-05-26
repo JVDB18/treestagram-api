@@ -33,7 +33,6 @@ public class PhotoController {
     @PostMapping("/photos/add")
     public void addPhoto(@RequestParam("username") String username, @RequestParam("description") String desc, @RequestParam("image") MultipartFile file, Model model) throws Exception {
        photoService.addPhoto(username, desc, file);
-        
     }
     
     @CrossOrigin

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.websocket.server.PathParam;
 import jvdb18.treestagramapi.form.PostForm;
 import jvdb18.treestagramapi.model.entities.Post;
@@ -34,8 +35,8 @@ public class PostController {
     //     return this.postServiceImpl.addPost(form, file);
     // }
     @PostMapping("add")
-    public void addPost(@RequestParam("description") String desc, @RequestParam("localisation") String loca,@RequestParam("username") String username,@RequestParam("userid") String userid, MultipartFile file) throws IOException{
-       this.postServiceImpl.addPost(desc, loca, username, userid, null, file);
+    public void addPost(@RequestParam("description") String desc, @RequestParam("localisation") String loca, @RequestParam("username") String username, MultipartFile file) throws IOException{
+       this.postServiceImpl.addPost(desc, loca, username, null, file);
     }
     @GetMapping("/{id}")
     public Post getById(@PathVariable("id") String id){

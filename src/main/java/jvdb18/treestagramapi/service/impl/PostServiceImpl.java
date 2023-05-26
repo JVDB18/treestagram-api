@@ -23,7 +23,7 @@ public class PostServiceImpl {
         this.photoService = photoService;
     }
     
-    public void addPost(String desc, String loca, String username, String userId, List<String> tags, MultipartFile file) throws IOException{
+    public void addPost(String desc, String loca, String username, List<String> tags, MultipartFile file) throws IOException{
         Post post = new Post();
         post.setDescription(desc);
         post.setLocalisation(loca);

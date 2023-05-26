@@ -104,6 +104,7 @@ public class SecurityConfig {
 
         http.csrf().disable();
 
+        http.cors();
         http.httpBasic().disable();
         http.addFilterBefore( jwtFilter, UsernamePasswordAuthenticationFilter.class );
         http.sessionManagement()
